@@ -42,7 +42,7 @@ nano /etc/network/interfaces
 useradd -m -s /bin/bash sshuser -u 2026 -U
 usermod -aG sudo sshuser
 passwd sshuser
-nano /etc/sudoers
+visudo
 apt install -y openssh-server
 nano /etc/ssh_banner
 nano /etc/ssh/sshd_config
