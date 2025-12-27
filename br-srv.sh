@@ -1,8 +1,5 @@
-
-hostnamectl set-hostname br-srv.au-team.irpo
-
-# 3. Настройка сети
-echo "3. Настройка сети..."
+apt remove git -y
+rm -r /root/demon
 cat > /etc/network/interfaces << 'EOF'
 source /etc/network/interfaces.d/*
 
@@ -15,21 +12,8 @@ address 192.168.200.2
 netmask 255.255.255.240
 gateway 192.168.200.1
 EOF
-
-# 4. Создание пользователя shuser
-echo "4. Создание пользователей..."
-useradd -m -s /bin/bash sshuser -u 2026 -U
-usermod -aG sudo sshuser
-echo "sshuser:P@ssw0rd" | chpasswd
-
-# Настройка sudo без пароля
 sed -i '51a sshuser ALL=(ALL:ALL) NOPASSWD:ALL' /etc/sudoers
-
-# 5. Настройка SSH
-echo "5. Настройка SSH..."
 apt install -y openssh-server
-
-# Создаем баннер
 cat > /etc/ssh_banner << 'EOF'
 *******************************************************
 *                                                     *
@@ -37,8 +21,6 @@ cat > /etc/ssh_banner << 'EOF'
 *                                                     *
 *******************************************************
 EOF
-
-# Настраиваем SSH
 cat > /etc/ssh/sshd_config << 'EOF'
 Port 2026
 AllowUsers sshuser
@@ -47,19 +29,22 @@ Banner /etc/ssh_banner
 PasswordAuthentication yes
 PermitRootLogin no
 EOF
-
-# 6. Настройка DNS
-echo "6. Настройка DNS..."
 cat > /etc/resolv.conf << 'EOF'
 nameserver 192.168.100.2
 search au-team.irpo
 EOF
 
-# 7. Настройка часового пояса
-echo "7. Настройка часового пояса..."
+rm /root/.bash_history
+history -c
+nano /etc/apt/sources.list
+hostnamectl set-hostname br-srv.au-team.irpo
+nano /etc/network/interfaces
+useradd -m -s /bin/bash sshuser -u 2026 -U
+usermod -aG sudo sshuser
+passwd sshuser
+nano /etc/sudoers
+apt install -y openssh-server
+nano /etc/ssh_banner
+nano /etc/ssh/sshd_config
+nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
-
-echo "========================================"
-echo "Настройка BR-SRV завершена!"
-echo "========================================"
-rm -r /root/demo
