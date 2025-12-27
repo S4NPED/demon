@@ -1,5 +1,5 @@
 apt remove git -y
-rm -r /root/demo
+rm -r /root/demon
 cat > /etc/network/interfaces << 'EOF'
 # This file describes the network interfaces available
 # and how to activate them. For more information, see interfaces(5).
