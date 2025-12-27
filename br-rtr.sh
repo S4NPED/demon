@@ -95,7 +95,7 @@ nano /etc/nftables.conf
 useradd -m -s /bin/bash net_admin -U
 usermod -aG sudo net_admin
 passwd net_admin
-nano /etc/sudoers
+visudo
 apt install -y frr
 nano /etc/frr/daemons
 systemctl restart frr
