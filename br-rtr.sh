@@ -1,4 +1,4 @@
-apt remove git
+apt remove git -y
 rm -r /root/demon
 cat > /etc/network/interfaces << 'EOF'
 source /etc/network/interfaces.d/*
