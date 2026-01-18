@@ -115,8 +115,8 @@ mkdir /etc/bind/zones
 nano /etc/bind/zones/au-team.db
 nano /etc/bind/zones/au-team_rev.db
 mkdir /var/cache/bind/master
-nano /etc/resolv.conf
 cp /etc/bind/zones/au-team.db /var/cache/bind/master
 cp /etc/bind/zones/au-team_rev.db /var/cache/bind/master
 named-checkconf -z
+nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
