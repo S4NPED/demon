@@ -1,5 +1,6 @@
 apt remove git -y
 rm -r /root/demon
+apt-get update
 cat > /etc/network/interfaces << 'EOF'
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -111,6 +112,7 @@ visudo
 apt install -y openssh-server
 nano /etc/ssh_banner
 nano /etc/ssh/sshd_config
+apt-get update
 apt install -y bind9 
 nano /etc/bind/named.conf.options
 nano /etc/bind/named.conf.local
