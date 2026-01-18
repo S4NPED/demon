@@ -1,19 +1,5 @@
-#!/bin/bash
-# Полная настройка HQ-SRV для демонстрационного экзамена 2026
-# Debian 13
-
-echo "========================================"
-echo "Настройка HQ-SRV (Debian 13)"
-echo "========================================"
-
-apt update
-
-# 2. Настройка имени хоста
-echo "2. Настройка имени хоста..."
-hostnamectl set-hostname hq-srv.au-team.irpo
-
-# 3. Настройка сети
-echo "3. Настройка сети..."
+apt remove git -y
+rm -r /root/demon
 cat > /etc/network/interfaces << 'EOF'
 source /etc/network/interfaces.d/*
 
@@ -26,21 +12,8 @@ address 192.168.100.2
 netmask 255.255.255.224
 gateway 192.168.100.1
 EOF
-
-# 4. Создание пользователя shuser
-echo "4. Создание пользователей..."
-useradd -m -s /bin/bash sshuser -u 2026 -U
-usermod -aG sudo sshuser
-echo "sshuser:P@ssw0rd" | chpasswd
-
-# Настройка sudo без пароля
 sed -i '51a sshuser ALL=(ALL:ALL) NOPASSWD:ALL' /etc/sudoers
-
-# 5. Настройка SSH
-echo "5. Настройка SSH..."
 apt install -y openssh-server
-
-# Создаем баннер
 cat > /etc/ssh_banner << 'EOF'
 *******************************************************
 *                                                     *
@@ -48,8 +21,6 @@ cat > /etc/ssh_banner << 'EOF'
 *                                                     *
 *******************************************************
 EOF
-
-# Настраиваем SSH
 cat > /etc/ssh/sshd_config << 'EOF'
 Port 2026
 AllowUsers sshuser
@@ -58,16 +29,9 @@ Banner /etc/ssh_banner
 PasswordAuthentication yes
 PermitRootLogin no
 EOF
-
-# 6. Установка и настройка BIND9 (DNS)
-echo "6. Установка DNS сервера..."
-apt install -y bind9 bind9-utils
-
-# Создаем директории
+apt install -y bind9 
 mkdir /etc/bind/zones
 mkdir /var/cache/bind/master
-
-# Настраиваем options
 cat > /etc/bind/named.conf.options << 'EOF'
 options {
     directory "/var/cache/bind";
@@ -80,8 +44,6 @@ options {
     listen-on port 53 { 127.0.0.1; 192.168.100.0/27; 192.168.100.32/28; 192.168.200.0/28; };
 };
 EOF
-
-# Настраиваем локальные зоны
 cat > /etc/bind/named.conf.local << 'EOF'
 zone "au-team.irpo" {
     type master;
@@ -93,8 +55,6 @@ zone "100.168.192.in-addr.arpa" {
     file "master/au-team_rev.db";
 };
 EOF
-
-# Создаем прямую зону
 cat > /etc/bind/zones/au-team.db << 'EOF'
 $TTL 604800
 @   IN  SOA localhost. root.localhost. (
@@ -115,8 +75,6 @@ br-srv   IN  A   192.168.200.2
 moodle   IN  CNAME hq-rtr.au-team.irpo.
 wiki     IN  CNAME hq-rtr.au-team.irpo.
 EOF
-
-# Создаем обратную зону
 cat > /etc/bind/zones/au-team_rev.db << 'EOF'
 $TTL 604800
 @   IN  SOA localhost. root.localhost. (
@@ -131,22 +89,33 @@ $TTL 604800
 2   IN  PTR hq-srv.au-team.irpo.
 66  IN  PTR hq-cli.au-team.irpo.
 EOF
-
-# Настраиваем права
 chown -R root /etc/bind/zones
 chown 0640 /etc/bind/zones/*
-
 cp /etc/bind/zones/au-team.db /var/cache/bind/master
 cp /etc/bind/zones/au-team_rev.db /var/cache/bind/master
-
-# 7. Настройка resolv.conf
 echo "nameserver 192.168.100.2" > /etc/resolv.conf
 
-# 8. Настройка часового пояса
-echo "7. Настройка часового пояса..."
+rm /root/.bash_history
+history -c
+nano /etc/apt/sources.list
+hostnamectl set-hostname hq-srv.au-team.irpo
+nano /etc/network/interfaces
+useradd -m -s /bin/bash sshuser -u 2026 -U
+usermod -aG sudo sshuser
+passwd sshuser
+visudo
+apt install -y openssh-server
+nano /etc/ssh_banner
+nano /etc/ssh/sshd_config
+apt install -y bind9 
+nano /etc/bind/named.conf.options
+nano /etc/bind/named.conf.local
+named-checkconf
+mkdir /etc/bind/zones
+nano /etc/bind/zones/au-team.db
+nano /etc/bind/zones/au-team_rev.db
+mkdir /var/cache/bind/master
+nano /etc/resolv.conf
+cp /etc/bind/zones/au-team.db /var/cache/bind/master
+cp /etc/bind/zones/au-team_rev.db /var/cache/bind/master
 timedatectl set-timezone Asia/Krasnoyarsk
-
-echo "========================================"
-echo "Настройка HQ-SRV завершена!"
-echo "========================================"
-rm -r /root/demo
