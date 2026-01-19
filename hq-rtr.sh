@@ -1,26 +1,12 @@
-#!/bin/bash
-# Полная настройка HQ-RTR для демонстрационного экзамена 2026
-# Debian 13
-
-echo "========================================"
-echo "Настройка HQ-RTR (Debian 13)"
-echo "========================================"
-
-apt update
-
-# 2. Настройка имени хоста
-echo "2. Настройка имени хоста..."
-hostnamectl set-hostname hq-rtr.au-team.irpo
-
-# 9. Настройка GRE туннеля
-echo "9. Настройка GRE туннеля..."
-apt install -y network-manager
-
-# 3. Настройка базовой сети (без VLAN)
-echo "3. Настройка базовой сети..."
+apt remove git -y
+rm -r /root/demon
 cat > /etc/network/interfaces << 'EOF'
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
 source /etc/network/interfaces.d/*
 
+# The loopback network interface
 auto lo
 iface lo inet loopback
 
@@ -59,15 +45,9 @@ post-up ip link set hq-sw up
 post-up ip link set tun1 up
 post-up ip link set gre0 up
 EOF
-
-# 4. Включение IP forwarding
+apt install -y network-manager
 echo > /etc/sysctl.d/sysctl.conf
 sed -i '1i net.ipv4.ip_forward=1' /etc/sysctl.d/sysctl.conf
-
-# 5. Настройка nftables для NAT
-echo "5. Настройка nftables..."
-apt install -y nftables
-
 cat > /etc/nftables.conf << 'EOF'
 #!/usr/sbin/nft -f
 
@@ -93,48 +73,9 @@ table inet filter {
     }
 }
 EOF
-
-# 12. Создание пользователя net_admin
-echo "12. Создание пользователей..."
-useradd -m -s /bin/bash net_admin -U
-usermod -aG sudo net_admin
-echo "net_admin:P@ssw0rd" | chpasswd
-
-# Настройка sudo без пароля
 sed -i '51a net_admin ALL=(ALL:ALL) NOPASSWD:ALL' /etc/sudoers
-
-# 6. Установка Open vSwitch для VLAN
-echo "6. Установка Open vSwitch..."
-apt install -y openvswitch-switch
-
-# 7. Настройка VLAN через OVS
-echo "7. Настройка VLAN..."
-
-# Создаем мост
-ovs-vsctl add-br hq-sw
-
-# Добавляем физические интерфейсы с тегами VLAN
-ovs-vsctl add-port hq-sw ens4 tag=100
-ovs-vsctl add-port hq-sw ens5 tag=200
-ovs-vsctl add-port hq-sw ens6 tag=999
-
-# Создаем VLAN интерфейсы
-ovs-vsctl add-port hq-sw vlan100 tag=100 -- set interface vlan100 type=internal
-ovs-vsctl add-port hq-sw vlan200 tag=200 -- set interface vlan200 type=internal
-ovs-vsctl add-port hq-sw vlan999 tag=999 -- set interface vlan999 type=internal
-
-# 10. Установка и настройка FRR (OSPF)
-echo "10. Установка FRR для OSPF..."
 apt install -y frr
-
-# Включаем OSPF демон
 sed -i 's/ospfd=no/ospfd=yes/' /etc/frr/daemons
-
-# 3. Перезапуск FRR
-echo "Перезапускаем FRR..."
-systemctl restart frr
-
-# Создаем конфигурацию OSPF
 cat > /etc/frr/frr.conf << 'EOF'
 frr version 10.3
 frr defaults traditional
@@ -161,18 +102,11 @@ router ospf
 line vty
 !
 EOF
-
-# 11. Установка и настройка DHCP сервера
-echo "11. Установка DHCP сервера..."
 apt install -y isc-dhcp-server
-
-# Настраиваем интерфейс для DHCP
 cat > /etc/default/isc-dhcp-server << 'EOF'
 INTERFACESv4="vlan200"
 INTERFACESv6=""
 EOF
-
-# Настраиваем DHCP
 cat > /etc/dhcp/dhcpd.conf << 'EOF'
 option domain-name "au-team.irpo";
 option domain-name-servers 192.168.100.2;
@@ -190,11 +124,29 @@ subnet 192.168.100.32 netmask 255.255.255.240 {
 }
 EOF
 
-# 13. Настройка часового пояса
-echo "13. Настройка часового пояса..."
+rm /root/.bash_history
+history -c
+nano /etc/apt/sources.list
+hostnamectl set-hostname hq-rtr.au-team.irpo
+nano /etc/network/interfaces
+nano /etc/sysctl.d/sysctl.conf
+nano /etc/nftables.conf
+useradd -m -s /bin/bash net_admin -U
+usermod -aG sudo net_admin
+passwd net_admin
+visudo
+apt install -y openvswitch-switch
+ovs-vsctl add-br hq-sw
+ovs-vsctl add-port hq-sw ens4 tag=100
+ovs-vsctl add-port hq-sw ens5 tag=200
+ovs-vsctl add-port hq-sw ens6 tag=999
+ovs-vsctl add-port hq-sw vlan100 tag=100 -- set interface vlan100 type=internal
+ovs-vsctl add-port hq-sw vlan200 tag=200 -- set interface vlan200 type=internal
+ovs-vsctl add-port hq-sw vlan999 tag=999 -- set interface vlan999 type=internal
+apt install -y frr
+nano /etc/frr/daemons
+nano /etc/frr/frr.conf
+apt install -y isc-dhcp-server
+nano /etc/default/isc-dhcp-server
+nano /etc/dhcp/dhcpd.conf
 timedatectl set-timezone Asia/Krasnoyarsk
-
-echo "========================================"
-echo "Настройка HQ-RTR завершена!"
-echo "========================================"
-rm -r /root/demo
