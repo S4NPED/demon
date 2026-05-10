@@ -1,5 +1,6 @@
 apt remove git -y
 rm -r /root/demon
+apt update
 cat > /etc/network/interfaces << 'EOF'
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
