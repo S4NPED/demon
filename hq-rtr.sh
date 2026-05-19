@@ -111,6 +111,7 @@ EOF
 cat > /etc/dhcp/dhcpd.conf << 'EOF'
 option domain-name "au-team.irpo";
 option domain-name-servers 192.168.100.2;
+option domain-name-servers 192.168.200.2;
 
 default-lease-time 600;
 max-lease-time 7200;
