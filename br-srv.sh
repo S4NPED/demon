@@ -53,3 +53,22 @@ nano /etc/ssh_banner
 nano /etc/ssh/sshd_config
 nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
+apt install -y samba smbclient winbind libnss-winbind krb5-user net-tools
+mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
+systemctl stop smbd nmbd winbind
+systemctl stop samba-ad-dc
+samba-tool domain provision --use-rfc2307 --interactive
+systemctl start smbd nmbd winbind
+systemctl start samba-ad-dc
+cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+samba-tool group add hq
+samba-tool user create hquser1 Pa$$word
+samba-tool group addmembers hq hquser1
+samba-tool user create hquser2 Pa$$word
+samba-tool group addmembers hq hquser2
+samba-tool user create hquser3 Pa$$word
+samba-tool group addmembers hq hquser3
+samba-tool user create hquser4 Pa$$word
+samba-tool group addmembers hq hquser4
+samba-tool user create hquser5 Pa$$word
+samba-tool group addmembers hq hquser5
