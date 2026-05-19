@@ -16,6 +16,11 @@ iface ens3 inet dhcp
 EOF
 
 rm /root/.bash_history
+apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli
+packagekit
+cat > /etc/sudoers.d/hq-users << 'EOF'
+
+
 history -c
 nano /etc/apt/sources.list
 hostnamectl set-hostname hq-cli.au-team.irpo
