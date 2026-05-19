@@ -21,3 +21,10 @@ nano /etc/apt/sources.list
 hostnamectl set-hostname hq-cli.au-team.irpo
 nano /etc/network/interfaces
 timedatectl set-timezone Asia/Krasnoyarsk
+apt update && apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli
+packagekit
+realm join -U admininstrator au-team.irpo
+pam-auth-update --enable mkhomedir
+realm deny --all
+realm permit -g hq@au-team.irpo
+nano /etc/sudoers.d/hq-users
