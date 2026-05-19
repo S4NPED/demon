@@ -19,7 +19,8 @@ rm /root/.bash_history
 apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli
 packagekit
 cat > /etc/sudoers.d/hq-users << 'EOF'
-
+%hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id  su - hquser1@au-team.irpo
+EOF
 
 history -c
 nano /etc/apt/sources.list
