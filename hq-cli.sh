@@ -22,7 +22,7 @@ cat > /etc/sudoers.d/hq-users << 'EOF'
 EOF
 cat > /etc/resolv.conf << 'EOF'
 search localdomain au-team.irpo
-nameserver 127.0.0.1
+nameserver 192.168.200.2
 EOF
 
 history -c
