@@ -21,7 +21,7 @@ cat > /etc/sudoers.d/hq-users << 'EOF'
 %hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id
 EOF
 cat > /etc/resolv.conf << 'EOF'
-nameserver 192.168.200.2
+nameserver 192.168.100.2
 EOF
 
 history -c
