@@ -20,8 +20,9 @@ apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli packagekit
 cat > /etc/sudoers.d/hq-users << 'EOF'
 %hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id
 EOF
-nano /etc/resolv.conf
-
+cat > /etc/resolv.conf << 'EOF'
+nameserver 192.168.200.2
+EOF
 
 history -c
 nano /etc/apt/sources.list
