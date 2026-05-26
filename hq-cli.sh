@@ -14,8 +14,6 @@ iface lo inet loopback
 auto ens3
 iface ens3 inet dhcp
 EOF
-
-rm /root/.bash_history
 apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli packagekit
 cat > /etc/sudoers.d/hq-users << 'EOF'
 %hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id
@@ -25,6 +23,7 @@ search localdomain au-team.irpo
 nameserver 192.168.200.2
 EOF
 
+rm /root/.bash_history
 history -c
 nano /etc/apt/sources.list
 hostnamectl set-hostname hq-cli.au-team.irpo
