@@ -33,7 +33,27 @@ Banner /etc/ssh_banner
 PasswordAuthentication yes
 PermitRootLogin no
 EOF
-echo "nameserver 192.168.100.2" > /etc/resolv.conf
+apt install dnsmasq -y
+cat > /etc/dnsmasq.conf << 'EOF'
+interface=ens3 
+server=8.8.8.8 
+domain=au-team.irpo 
+listen-address=192.168.100.2 
+no-resolv 
+no-hosts 
+address=/hq-rtr.au-team.irpo/192.168.100.1 
+ptr-record=1.100.168.192.in-addr.arpa,hq-rtr.au-team.irpo 
+address=/br-rtr.au-team.irpo/192.168.200.1 
+address=/hq-srv.au-team.irpo/192.168.100.2 
+ptr-record=2.100.168.192.in-addr.arpa,hq-srv.au-team.irpo 
+address=/hq-cli.au-team.irpo/192.168.100.34 
+ptr-record=34.100.168.192.in-addr.arpa,hq-cli.au-team.irpo 
+address=/br-srv.au-team.irpo/192.168.200.2 
+ptr-record=2.200.168.192.in-addr.arpa,br-srv.au-team.irpo 
+address=/docker.au-team.irpo/172.16.1.1 
+address=/web.au-team.irpo/172.16.2.1
+EOF
+echo "nameserver 127.0.0.1" > /etc/resolv.conf
 
 rm /root/.bash_history
 history -c
@@ -49,3 +69,5 @@ nano /etc/ssh_banner
 nano /etc/ssh/sshd_config
 nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
+apt install dnsmasq -y
+nano /etc/dnsmasq.conf
