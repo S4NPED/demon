@@ -13,8 +13,7 @@ iface lo inet loopback
 
 auto ens3
 iface ens3 inet static
-address 192.168.200.2
-netmask 255.255.255.240
+address 192.168.200.2/28
 gateway 192.168.200.1
 EOF
 sed -i '51a sshuser ALL=(ALL:ALL) NOPASSWD:ALL' /etc/sudoers
