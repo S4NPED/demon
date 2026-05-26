@@ -16,19 +16,20 @@ iface ens3 inet dhcp
 EOF
 
 rm /root/.bash_history
-apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli
-packagekit
+apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli packagekit
 cat > /etc/sudoers.d/hq-users << 'EOF'
-%hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id  su - hquser1@au-team.irpo
+%hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id
 EOF
+nano /etc/resolv.conf
+
 
 history -c
 nano /etc/apt/sources.list
 hostnamectl set-hostname hq-cli.au-team.irpo
 nano /etc/network/interfaces
 timedatectl set-timezone Asia/Krasnoyarsk
-apt update && apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli
-packagekit
+apt update && apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli packagekit
+nano /etc/resolv.conf
 realm join -U admininstrator au-team.irpo
 pam-auth-update --enable mkhomedir
 realm deny --all
