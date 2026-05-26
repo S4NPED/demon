@@ -62,13 +62,13 @@ systemctl start smbd nmbd winbind
 systemctl start samba-ad-dc
 cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
 samba-tool group add hq
-samba-tool user create hquser1 Pa$$word
+samba-tool user create hquser1 P@ssw0rd
 samba-tool group addmembers hq hquser1
-samba-tool user create hquser2 Pa$$word
+samba-tool user create hquser2 P@ssw0rd
 samba-tool group addmembers hq hquser2
-samba-tool user create hquser3 Pa$$word
+samba-tool user create hquser3 P@ssw0rd
 samba-tool group addmembers hq hquser3
-samba-tool user create hquser4 Pa$$word
+samba-tool user create hquser4 P@ssw0rd
 samba-tool group addmembers hq hquser4
-samba-tool user create hquser5 Pa$$word
+samba-tool user create hquser5 P@ssw0rd
 samba-tool group addmembers hq hquser5
