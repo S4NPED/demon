@@ -109,6 +109,7 @@ ptr-record=2.200.168.192.in-addr.arpa,br-srv.au-team.irpo
 address=/docker.au-team.irpo/172.16.1.1 
 address=/web.au-team.irpo/172.16.2.1
 EOF
+echo "nameserver 127.0.0.1" > /etc/resolv.conf
 
 rm /root/.bash_history
 history -c
