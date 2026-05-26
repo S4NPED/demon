@@ -13,8 +13,7 @@ iface lo inet loopback
 
 auto ens3
 iface ens3 inet static
-address 172.16.1.2
-netmask 255.255.255.240
+address 172.16.1.2/28
 gateway 172.16.1.1
 
 auto vlan100
