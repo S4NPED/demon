@@ -109,7 +109,7 @@ INTERFACESv6=""
 EOF
 cat > /etc/dhcp/dhcpd.conf << 'EOF'
 option domain-name "au-team.irpo";
-option domain-name-servers 192.168.200.2;
+option domain-name-servers 192.168.100.2;
 
 default-lease-time 600;
 max-lease-time 7200;
@@ -122,6 +122,10 @@ subnet 192.168.100.32 netmask 255.255.255.240 {
     range 192.168.100.34 192.168.100.47;
     option routers 192.168.100.33;
 }
+EOF
+apt install dnsmasq -y
+cat > /etc/dnsmasq.conf << 'EOF'
+
 EOF
 
 rm /root/.bash_history
@@ -150,3 +154,5 @@ apt install -y isc-dhcp-server
 nano /etc/default/isc-dhcp-server
 nano /etc/dhcp/dhcpd.conf
 timedatectl set-timezone Asia/Krasnoyarsk
+apt install dnsmasq -y
+nano /etc/dnsmasq.conf
