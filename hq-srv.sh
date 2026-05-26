@@ -47,6 +47,5 @@ visudo
 apt install -y openssh-server
 nano /etc/ssh_banner
 nano /etc/ssh/sshd_config
-apt-get update
 nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
