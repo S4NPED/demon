@@ -127,4 +127,4 @@ systemctl restart frr
 nano /etc/frr/frr.conf
 timedatectl set-timezone Asia/Krasnoyarsk
 apt install dnsmasq -y
-nano /etc/
+nano /etc/dnsmasq.conf
