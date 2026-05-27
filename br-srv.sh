@@ -74,7 +74,7 @@ cat > /etc/ansible/hosts << 'EOF'
 [br]
 192.168.200.1 ansible_user=net_admin ansible_password=P@ssw0rd
 
-[all: vars]
+[all:vars]
 ansible_python_interpreter=/usr/bin/python3.13
 EOF
 
