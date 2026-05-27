@@ -53,10 +53,8 @@ ptr-record=2.200.168.192.in-addr.arpa,br-srv.au-team.irpo
 address=/docker.au-team.irpo/172.16.1.1 
 address=/web.au-team.irpo/172.16.2.1
 EOF
-cat > /etc/resolv.conf << 'EOF'
-search localdomain au-team.irpo
-nameserver 127.0.0.1
-EOF
+sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
+sed -i '3c nameserver 127.0.0.1' /etc/resolv.conf
 apt install chrony -y
 sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
 sed -i '5a server 172.16.1.1 iburst' /etc/chrony/chrony.conf
