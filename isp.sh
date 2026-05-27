@@ -53,9 +53,9 @@ table inet filter {
 EOF
 apt install chrony -y
 sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
-sed -i '6a server ntp1.vniiftri.ru iburst prefer' /etc/chrony/chrony.conf
-sed -i '7a local stratum 5' /etc/chrony/chrony.conf
-sed -i '8a allow 0.0.0.0/0' /etc/chrony/chrony.conf
+sed -i '5a server ntp1.vniiftri.ru iburst prefer' /etc/chrony/chrony.conf
+sed -i '6a local stratum 5' /etc/chrony/chrony.conf
+sed -i '7a allow 0.0.0.0/0' /etc/chrony/chrony.conf
 
 rm /root/.bash_history
 history -c
