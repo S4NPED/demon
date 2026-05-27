@@ -59,6 +59,24 @@ systemctl restart dnsmasq
 apt install chrony -y
 sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
 sed -i '5a server 172.16.2.1 iburst' /etc/chrony/chrony.conf
+apt install ansible sshpass -y
+mkdir -p /etc/ansible
+cat > /etc/ansible/ansible.cfg << 'EOF'
+[defaults]
+host_key_checking=False
+EOF
+cat > /etc/ansible/hosts << 'EOF'
+[hq]
+192.168.100.1 ansible_user=net_admin ansible_password=P@ssw0rd
+192. 168.100.2 ansible_user=sshuser ansible_password=P@ssw0rd ansible_port=2026
+192. 168.100.35 ansible_user=sshuser ansible_password=P@ssw0rd
+
+[br]
+192. 168.200.1 ansible_user=net_admin ansible_password=P@ssw0rd
+
+[all: vars]
+ansible_python_interpreter=/usr/bin/python3.13
+EOF
 
 rm /root/.bash_history
 history -c
@@ -75,12 +93,10 @@ nano /etc/ssh/sshd_config
 nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
 apt install -y samba smbclient winbind libnss-winbind krb5-user net-tools
-read -p "Нажмите Enter для продолжения..."
 mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
 systemctl stop smbd nmbd winbind
 systemctl stop samba-ad-dc
 samba-tool domain provision --use-rfc2307 --interactive
-read -p "Нажмите Enter для продолжения..."
 systemctl start smbd nmbd winbind
 systemctl start samba-ad-dc
 cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
@@ -100,3 +116,7 @@ nano /etc/dnsmasq.conf
 apt install chrony -y
 nano /etc/chrony/chrony.conf
 systemctl restart chronyd
+apt install ansible sshpass -y
+nano /etc/ansible/ansible.cfg
+nano /etc/ansible/hosts
+ansible all -m ping
