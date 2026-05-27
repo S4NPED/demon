@@ -18,10 +18,8 @@ apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli packagekit
 cat > /etc/sudoers.d/hq-users << 'EOF'
 %hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id
 EOF
-cat > /etc/resolv.conf << 'EOF'
-search localdomain au-team.irpo
-nameserver 192.168.200.2
-EOF
+sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
+sed -i '3c nameserver 192.168.200.2' /etc/resolv.conf
 
 rm /root/.bash_history
 history -c
