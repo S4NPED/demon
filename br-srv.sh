@@ -33,8 +33,6 @@ Banner /etc/ssh_banner
 PasswordAuthentication yes
 PermitRootLogin no
 EOF
-sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
-sed -i '3c nameserver 127.0.0.1' /etc/resolv.conf
 apt install chrony -y
 sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
 sed -i '5a server 172.16.2.1 iburst' /etc/chrony/chrony.conf
