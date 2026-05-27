@@ -1,6 +1,6 @@
 apt remove git -y
 rm -r /root/demon
-apt-get update
+apt update
 cat > /etc/network/interfaces << 'EOF'
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -57,6 +57,10 @@ cat > /etc/resolv.conf << 'EOF'
 search localdomain au-team.irpo
 nameserver 127.0.0.1
 EOF
+apt install chrony -y
+sed -i '5a #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
+sed -i '6a server 172.16.1.1 iburst' /etc/chrony/chrony.conf
+
 
 rm /root/.bash_history
 history -c
@@ -74,3 +78,6 @@ nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
 apt install dnsmasq -y
 nano /etc/dnsmasq.conf
+apt install chrony -y
+nano /etc/chrony/chrony.conf
+systemctl restart chronyd
