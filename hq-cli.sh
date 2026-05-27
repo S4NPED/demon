@@ -19,8 +19,7 @@ EOF
 sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
 sed -i '3c nameserver 192.168.200.2' /etc/resolv.conf
 
-cp /etc/root/demon/Yandex.deb /etc/root
-
+https://browser.yandex.ru/download?os=linux&partner_id=switch-browser&banerid=6301000000&switch=1
 apt remove git -y
 rm -r /root/demon
 rm /root/.bash_history
