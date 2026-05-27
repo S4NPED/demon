@@ -67,3 +67,4 @@ nano /etc/nftables.conf
 timedatectl set-timezone Asia/Krasnoyarsk
 apt install chrony -y
 nano /etc/chrony/chrony.conf
+systemctl restart chronyd
