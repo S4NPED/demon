@@ -58,7 +58,7 @@ search localdomain au-team.irpo
 nameserver 127.0.0.1
 EOF
 apt install chrony -y
-sed -i '5a #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
+sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
 sed -i '6a server 172.16.1.1 iburst' /etc/chrony/chrony.conf
 
 
