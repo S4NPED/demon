@@ -34,3 +34,7 @@ pam-auth-update --enable mkhomedir
 realm deny --all
 realm permit -g hq@au-team.irpo
 nano /etc/sudoers.d/hq-users
+apt install openssh-server
+useradd -m -s /bin/bash sshuser -U
+usermod -aG sudo sshuser
+passwd sshuser
