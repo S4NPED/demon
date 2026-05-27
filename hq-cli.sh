@@ -1,5 +1,3 @@
-apt remove git -y
-rm -r /root/demon
 apt update
 cat > /etc/network/interfaces << 'EOF'
 # This file describes the network interfaces available on your system
@@ -21,6 +19,9 @@ EOF
 sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
 sed -i '3c nameserver 192.168.200.2' /etc/resolv.conf
 
+cp /etc/root/demon/Yandex.deb /etc/root
+apt remove git -y
+rm -r /root/demon
 rm /root/.bash_history
 history -c
 nano /etc/apt/sources.list
@@ -38,3 +39,6 @@ apt install openssh-server
 useradd -m -s /bin/bash sshuser -U
 usermod -aG sudo sshuser
 passwd sshuser
+
+apt install ./Yandex.deb -y
+yandex-browser-stable --no-sandbox
