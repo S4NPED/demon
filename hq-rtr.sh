@@ -150,3 +150,4 @@ apt install -y isc-dhcp-server
 nano /etc/default/isc-dhcp-server
 nano /etc/dhcp/dhcpd.conf
 timedatectl set-timezone Asia/Krasnoyarsk
+apt install openssh-server
