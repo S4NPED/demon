@@ -57,6 +57,9 @@ cat > /etc/resolv.conf << 'EOF'
 search localdomain au-team.irpo
 nameserver 127.0.0.1
 EOF
+apt install chrony -y
+sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
+sed -i '5a server 172.16.2.1 iburst' /etc/chrony/chrony.conf
 
 rm /root/.bash_history
 history -c
@@ -93,3 +96,6 @@ samba-tool user create hquser5 P@ssw0rd
 samba-tool group addmembers hq hquser5
 apt install dnsmasq -y
 nano /etc/dnsmasq.conf
+apt install chrony -y
+nano /etc/chrony/chrony.conf
+systemctl restart chronyd
