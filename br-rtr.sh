@@ -106,3 +106,4 @@ nano /etc/frr/daemons
 systemctl restart frr
 nano /etc/frr/frr.conf
 timedatectl set-timezone Asia/Krasnoyarsk
+apt install openssh-server
