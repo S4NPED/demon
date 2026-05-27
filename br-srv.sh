@@ -95,3 +95,4 @@ apt install ansible sshpass -y
 nano /etc/ansible/ansible.cfg
 nano /etc/ansible/hosts
 ansible all -m ping
+apt install docker.io docker-compose -y
