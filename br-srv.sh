@@ -75,10 +75,12 @@ nano /etc/ssh/sshd_config
 nano /etc/resolv.conf
 timedatectl set-timezone Asia/Krasnoyarsk
 apt install -y samba smbclient winbind libnss-winbind krb5-user net-tools
+read -p "Нажмите Enter для продолжения..."
 mv /etc/samba/smb.conf /etc/samba/smb.conf.bak
 systemctl stop smbd nmbd winbind
 systemctl stop samba-ad-dc
 samba-tool domain provision --use-rfc2307 --interactive
+read -p "Нажмите Enter для продолжения..."
 systemctl start smbd nmbd winbind
 systemctl start samba-ad-dc
 cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
