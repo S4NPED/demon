@@ -76,3 +76,15 @@ nano /etc/dnsmasq.conf
 apt install chrony -y
 nano /etc/chrony/chrony.conf
 systemctl restart chronyd
+apt update
+apt install apache2 -y
+apt install mariadb-server mariadb-client -y
+apt install php8.4 php8.4-mysqli -y
+xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
+read -p "Нажмите Enter для продолжения..."
+cp /root/Загрузки/Additional.7z /root
+apt install p7zip-full
+7z x /root/Additional.7z
+7z x Additional.iso -o/root/Additional
+cp /root/Additional/web/dump.sql /tmp
+mysql -u root
