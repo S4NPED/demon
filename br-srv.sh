@@ -98,4 +98,8 @@ nano /etc/ansible/ansible.cfg
 nano /etc/ansible/hosts
 ansible all -m ping
 apt install docker.io docker-compose -y
-
+xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
+read -p "Нажмите Enter для продолжения..."
+cp /root/Загрузки/Additional.7z /root
+apt install p7zip-full
+7z x /root/Additional.7z
