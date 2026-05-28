@@ -17,7 +17,7 @@ cat > /etc/sudoers.d/hq-users << 'EOF'
 %hq@au-team.irpo ALL=(ALL) /usr/bin/cat, /usr/bin/grep, /usr/bin/id
 EOF
 sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
-sed -i '3c nameserver 192.168.200.2' /etc/resolv.conf
+sed -i '3c nameserver 192.168.100.2' /etc/resolv.conf
 
 apt remove git -y
 rm -r /root/demon
