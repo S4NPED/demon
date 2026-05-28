@@ -142,7 +142,7 @@ services:
       - db_data:/var/lib/mysql
 
 volumes:
-  db data:
+  db_data:
 EOF
 docker-compose -f docker-compose.yaml up -d
 docker ps
