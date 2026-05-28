@@ -81,9 +81,7 @@ systemctl restart chronyd
 apt update
 apt install apache2 -y
 apt install mariadb-server mariadb-client -y
-apt install httpd mariadb-server mariadb php php-cli php-common php-fpm php-gd php-intl php-json php-mysqlnd php-pdo php-xml php-xmlrpc php-soap -y
 apt install php8.4 php8.4-mysqli -y
-systemctl enable --now httpd
 xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
 read -p "Нажмите Enter для продолжения..."
 cp /root/Загрузки/Additional.7z /root
