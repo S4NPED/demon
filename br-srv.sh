@@ -103,3 +103,46 @@ read -p "Нажмите Enter для продолжения..."
 cp /root/Загрузки/Additional.7z /root
 apt install p7zip-full
 7z x /root/Additional.7z
+7z x Additional.iso -o/root/Additional
+docker image load -i /root/Additional/docker/site_latest.tar
+docker image load -i /root/Additional/docker/mariadb_latest.tar
+docker images
+mkdir testapp
+cd testapp/
+cat > docker-compose.yaml << 'EOF'
+version: '3.8'
+
+services:
+  testapp:
+    image: site:latest
+    container_name: testapp
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:8000"
+    environment:
+      DB_TYPE: maria
+      DB_HOST: db
+      DB_NAME: testdb
+      DB_PORT: "3306"
+      DB_USER: test
+      DB_PASS: Passw0rd
+
+  db:
+    image: mariadb:10.11
+    container_name: db
+    restart: always
+    environment:
+      MARIADB_DATABASE: testdb
+      MARIADB_USER: test
+      MARIADB_PASSWORD: Passw0rd
+      MARIADB_ROOT_PASSWORD: Passw0rd
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db data:
+EOF
+docker-compose -f docker-compose.yaml up -d
+docker ps
