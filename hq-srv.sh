@@ -89,3 +89,13 @@ apt install p7zip-full
 cp /root/Additional/web/dump.sql /tmp
 mysql -u root
 read -p "Нажмите Enter для продолжения..."
+mysql -u root webdb < /tmp/dump.sql
+mkdir -p /var/www/html
+cp /root/Additional/web/index.php /var/www/html
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
+sed -i '3c $username = "web";' /var/www/html/index.php
+sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
+sed -i '5c $dbname = "webdb";' /var/www/html/index.php
+rm -f /var/www/html/index.html
+systemctl restart apache2
