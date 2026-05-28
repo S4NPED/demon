@@ -88,3 +88,4 @@ apt install p7zip-full
 7z x Additional.iso -o/root/Additional
 cp /root/Additional/web/dump.sql /tmp
 mysql -u root
+read -p "Нажмите Enter для продолжения..."
