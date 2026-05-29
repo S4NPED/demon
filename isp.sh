@@ -96,5 +96,5 @@ ln -s /etc/nginx/sites-available/proxy /etc/nginx/sites-enabled
 sed -i '24c server_names_hash_bucket_size 64;' /etc/nginx/nginx.conf
 sed -i '1c 172.16.1.1	web.au-team.irpo' /etc/hosts
 sed -i '2c 172.16.2.1	docker.au-team.irpo' /etc/hosts
-htpasswd –bc /etc/nginx/.htpasswd WEB P@ssw0rd
+htpasswd -bc /etc/nginx/.htpasswd WEB P@ssw0rd
 systemctl restart nginx
