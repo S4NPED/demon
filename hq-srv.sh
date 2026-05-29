@@ -88,13 +88,3 @@ apt install p7zip-full
 apt install apache* -y
 apt install php php8.4 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
 apt install mariadb-* -y
-mount /root/Additional.iso /mnt/
-cp /mnt/web/index.php /var/www/html
-cp /mnt/web/logo.png /var/www/html
-sed -i '3c $username = "web";' /var/www/html/index.php
-sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
-sed -i '5c $dbname = "webdb";' /var/www/html/index.php
-sed -i '1c <VirtualHost *:8080>";' /etc/apache2/sites-available/000-default.conf
-sed -i '5c Listen 8080";' /etc/apache2/ports.conf
-rm /var/www/html/index.html
-mariadb -u root
