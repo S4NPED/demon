@@ -100,4 +100,4 @@ systemctl enable --now apache2
 sed -i '1c <VirtualHost *:8080>";' /etc/apache2/sites-available/000-default.conf
 sed -i '5c Listen 8080";' /etc/apache2/ports.conf
 rm /var/www/html/index.html
-mariadb –u root
+mariadb -u root
