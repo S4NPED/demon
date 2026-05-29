@@ -84,7 +84,7 @@ server {
 
 server {
     listen 80;
-    server_name docker.au-team irpo;
+    server_name docker.au-team.irpo;
     location / {
         proxy_pass http://172.16.2.2:8080;
         proxy_set_header Host $host;
