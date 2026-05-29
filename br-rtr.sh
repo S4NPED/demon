@@ -41,6 +41,12 @@ cat > /etc/nftables.conf << 'EOF'
 flush ruleset
 
 table ip nat {
+    chain prerouting {
+        type nat hook prerouting prioritu 0;
+        iifname "ens3" tcp dport 8080 dnat to 192.168.100.2:8080
+        iifname "ens3" tcp dport 2026 dnat to 192.168.100.2:2026
+    }
+    
     chain postrouting {
         type nat hook postrouting priority 100; policy accept
         meta l4proto { gre, ipip, ospf } counter return
