@@ -42,9 +42,9 @@ flush ruleset
 
 table ip nat {
     chain prerouting {
-        type nat hook prerouting prioritu 0;
-        iifname "ens3" tcp dport 8080 dnat to 192.168.100.2:8080
-        iifname "ens3" tcp dport 2026 dnat to 192.168.100.2:2026
+        type nat hook prerouting priority 0;
+        iifname "ens3" tcp dport 8080 dnat to 192.168.200.2:8080
+        iifname "ens3" tcp dport 2026 dnat to 192.168.200.2:2026
     }
     
     chain postrouting {
