@@ -96,7 +96,6 @@ cp /mnt/web/logo.png /var/www/html
 sed -i '3c $username = "web";' /var/www/html/index.php
 sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
 sed -i '5c $dbname = "webdb";' /var/www/html/index.php
-systemctl enable --now apache2
 sed -i '1c <VirtualHost *:8080>";' /etc/apache2/sites-available/000-default.conf
 sed -i '5c Listen 8080";' /etc/apache2/ports.conf
 rm /var/www/html/index.html
