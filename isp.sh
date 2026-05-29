@@ -73,6 +73,8 @@ cat > /etc/nginx/sites-available/proxy << 'EOF'
 server {
     listen 80;
     server_name web. au-team. irpo;
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/.htpasswd;
     location / {
         proxy_pass http://172.16.1.2:8080;
         proxy_set_header Host $host;
@@ -94,3 +96,5 @@ ln -s /etc/nginx/sites-available/proxy /etc/nginx/sites-enabled
 sed -i '24c server_names_hash_bucket_size 64;' /etc/nginx/nginx.conf
 sed -i '1c 172.16.1.1	web.au-team.irpo' /etc/hosts
 sed -i '2c 172.16.2.1	docker.au-team.irpo' /etc/hosts
+htpasswd –bc /etc/nginx/.htpasswd WEB P@ssw0rd
+systemctl restart nginx
