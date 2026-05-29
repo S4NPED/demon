@@ -79,61 +79,27 @@ apt install chrony -y
 nano /etc/chrony/chrony.conf
 systemctl restart chronyd
 apt update
-apt install apache2 -y
-apt install mariadb-server mariadb-client -y
-apt install php8.4 php8.4-mysqli -y
 xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
 read -p "Нажмите Enter для продолжения..."
 cp /root/Загрузки/Additional.7z /root
 apt install p7zip-full
 7z x /root/Additional.7z
 7z x Additional.iso -o/root/Additional
-cp /root/Additional/web/dump.sql /tmp
-mysql -u root
-read -p "Нажмите Enter для продолжения..."
-mysql -u root webdb < /tmp/dump.sql
-mkdir -p /var/www/html
-cp /root/Additional/web/index.php /var/www/html
-chown -R www-data:www-data /var/www/html
-chmod -R 755 /var/www/html
-sed -i '3c $username = "web";' /var/www/html/index.php
-sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
-sed -i '5c $dbname = "webdb";' /var/www/html/index.php
-rm -f /var/www/html/index.html
-systemctl restart apache2
-sed -i '1c <VirtualHost *:8080>";' /etc/apache2/sites-available/000-default.conf
-sed -i '5c Listen 8080";' /etc/apache2/ports.conf
-##########
 apt install apache* -y
-apt install php php8.2 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
+apt install php php8.4 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
 apt install mariadb-* -y
- 
 systemctl enable --now mariadb
 systemctl enable --now apache2
- 
 mount /root/Additional.iso /mnt/
 cp /mnt/web/index.php /var/www/html
 cp /mnt/web/logo.png /var/www/html
- 
-nano /var/www/html/index.php
-$username = “webc”;
-$password = “P@ssw0rd”;
-$dbname = “webdb”;
- 
+sed -i '3c $username = "webc";' /var/www/html/index.php
+sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
+sed -i '5c $dbname = "webdb";' /var/www/html/index.php
 mariadb –u root
-CREATE DATABASE webdb;
-CREATE USER ‘webc’@’localhost’ IDENTIFIED BY ‘P@ssw0rd’;
-GRANT ALL PRIVILEGES ON webdb.* TO ‘webc’@’localhost’ WITH GRANT OPTION;
-EXIT;
- 
-mariadb –u webc –p –D webdb < ~/dump.sql
- 
-Проверить: mariadb -u root
-USE webdb;
-SHOW TABLES;
- 
+read -p "Нажмите Enter для продолжения..."
+mariadb –u webc –p –D webdb < /mnt/web/dump.sql
 rm /var/www/html/index.html
- 
 systemctl enable --now apache2 && systemctl restart apache2
- 
-дальше в браузер
+sed -i '1c <VirtualHost *:8080>";' /etc/apache2/sites-available/000-default.conf
+sed -i '5c Listen 8080";' /etc/apache2/ports.conf
