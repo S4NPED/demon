@@ -88,8 +88,6 @@ apt install p7zip-full
 apt install apache* -y
 apt install php php8.4 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
 apt install mariadb-* -y
-systemctl enable --now mariadb
-systemctl enable --now apache2
 mount /root/Additional.iso /mnt/
 cp /mnt/web/index.php /var/www/html
 cp /mnt/web/logo.png /var/www/html
