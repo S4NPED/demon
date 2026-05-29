@@ -72,7 +72,7 @@ apt install apache2-utils -y
 cat > /etc/nginx/sites-available/proxy << 'EOF'
 server {
     listen 80;
-    server_name web. au-team. irpo;
+    server_name web.au-team.irpo;
     auth_basic "Restricted Access";
     auth_basic_user_file /etc/nginx/.htpasswd;
     location / {
@@ -84,7 +84,7 @@ server {
 
 server {
     listen 80;
-    server_name docker. au-team irpo;
+    server_name docker.au-team irpo;
     location / {
         proxy_pass http://172.16.2.2:8080;
         proxy_set_header Host $host;
