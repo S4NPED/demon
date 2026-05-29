@@ -38,3 +38,10 @@ apt install openssh-server -y
 useradd -m -s /bin/bash sshuser -U
 usermod -aG sudo sshuser
 passwd sshuser
+xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
+read -p "Нажмите Enter для продолжения..."
+cp /root/Загрузки/Additional.7z /root
+apt install p7zip-full
+7z x /root/Additional.7z
+apt install ./Yandex.deb -y
+yandex-browser-stable --no-sandbox
