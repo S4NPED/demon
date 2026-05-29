@@ -67,4 +67,28 @@ nano /etc/nftables.conf
 timedatectl set-timezone Asia/Krasnoyarsk
 apt install chrony -y
 nano /etc/chrony/chrony.conf
-systemctl restart chronyd
+apt install nginx -y
+apt install apache2-utils -y
+cat > /etc/nginx/sites-available/proxy << 'EOF'
+server {
+    listen 80;
+    server_name web. au-team. irpo;
+    location / {
+        proxy_pass http://172.16.1.2:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+server {
+    listen 80;
+    server_name docker. au-team irpo;
+    location / {
+        proxy_pass http://172.16.2.2:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+EOF
+ln -s /etc/nginx/sites-available/proxy /etc/nginx/sites-enabled
+sed -i '24c server_names_hash_bucket_size 64;' /etc/nginx/nginx.conf
