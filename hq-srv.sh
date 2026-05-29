@@ -103,3 +103,37 @@ rm -f /var/www/html/index.html
 systemctl restart apache2
 sed -i '1c <VirtualHost *:8080>";' /etc/apache2/sites-available/000-default.conf
 sed -i '5c Listen 8080";' /etc/apache2/ports.conf
+##########
+apt install apache* -y
+apt install php php8.2 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
+apt install mariadb-* -y
+ 
+systemctl enable --now mariadb
+systemctl enable --now apache2
+ 
+mount /root/Additional.iso /mnt/
+cp /mnt/web/index.php /var/www/html
+cp /mnt/web/logo.png /var/www/html
+ 
+nano /var/www/html/index.php
+$username = “webc”;
+$password = “P@ssw0rd”;
+$dbname = “webdb”;
+ 
+mariadb –u root
+CREATE DATABASE webdb;
+CREATE USER ‘webc’@’localhost’ IDENTIFIED BY ‘P@ssw0rd’;
+GRANT ALL PRIVILEGES ON webdb.* TO ‘webc’@’localhost’ WITH GRANT OPTION;
+EXIT;
+ 
+mariadb –u webc –p –D webdb < ~/dump.sql
+ 
+Проверить: mariadb -u root
+USE webdb;
+SHOW TABLES;
+ 
+rm /var/www/html/index.html
+ 
+systemctl enable --now apache2 && systemctl restart apache2
+ 
+дальше в браузер
