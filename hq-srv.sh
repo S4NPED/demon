@@ -88,6 +88,8 @@ apt install p7zip-full
 apt install apache* -y
 apt install php php8.4 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
 apt install mariadb-* -y
+systemctl enable --now mariadb
+systemctl enable --now apache2 
 cp /root/Additional/web/index.php /var/www/html
 mount /root/Additional.iso /mnt/
 cp /mnt/web/index.php /var/www/html
@@ -101,3 +103,4 @@ mariadb -u web -p -D webdb < /mnt/web/dump.sql
 rm /var/www/html/index.html
 sed -i '1c <VirtualHost *:8080>”;' /etc/apache2/sites-available/000-default.conf
 sed -i '5c Listen 8080”;' /etc/apache2/ports.conf
+systemctl restart apache2
