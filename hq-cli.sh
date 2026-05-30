@@ -29,7 +29,7 @@ nano /etc/network/interfaces
 timedatectl set-timezone Asia/Krasnoyarsk
 apt update && apt install -y realmd sssd sssd-tools libnss-sss libpam-sss adcli packagekit
 nano /etc/resolv.conf
-realm join -U admininstrator au-team.irpo
+realm join -U administrator au-team.irpo
 pam-auth-update --enable mkhomedir
 realm deny --all
 realm permit -g hq@au-team.irpo
