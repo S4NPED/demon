@@ -53,9 +53,6 @@ cat > /etc/ansible/hosts << 'EOF'
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3.13
-
-[clients]
-192.168.100.37
 EOF
 
 rm /root/.bash_history
