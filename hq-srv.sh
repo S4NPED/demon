@@ -102,6 +102,6 @@ mariadb -u root
 read -p "Нажмите Enter для продолжения..."
 mariadb -u web -p -D webdb < /mnt/web/dump.sql
 rm /var/www/html/index.html
-sed -i '1c <VirtualHost *:8080>”;' /etc/apache2/sites-available/000-default.conf
-sed -i '5c Listen 8080”;' /etc/apache2/ports.conf
+sed -i '1c <VirtualHost *:8080>' /etc/apache2/sites-available/000-default.conf
+sed -i '5c Listen 8080' /etc/apache2/ports.conf
 systemctl restart apache2
