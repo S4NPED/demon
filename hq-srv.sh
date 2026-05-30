@@ -97,7 +97,7 @@ cp /mnt/web/logo.png /var/www/html
 sed -i '3c $username = “web”;' /var/www/html/index.php
 sed -i '4c $password = “P@ssw0rd”;' /var/www/html/index.php
 sed -i '5c $dbname = “webdb”;' /var/www/html/index.php
-systemctl enable mariadb
+systemctl enable --now mariadb
 mariadb -u root
 read -p "Нажмите Enter для продолжения..."
 mariadb -u web -p -D webdb < /mnt/web/dump.sql
