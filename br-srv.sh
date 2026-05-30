@@ -130,7 +130,7 @@ services:
       DB_NAME: testdb
       DB_PORT: "3306"
       DB_USER: test
-      DB_PASS: P@ssw0rd
+      DB_PASS: Passw0rd
 
   db:
     image: mariadb:10.11
@@ -139,8 +139,8 @@ services:
     environment:
       MARIADB_DATABASE: testdb
       MARIADB_USER: test
-      MARIADB_PASSWORD: P@ssw0rd
-      MARIADB_ROOT_PASSWORD: P@ssw0rd
+      MARIADB_PASSWORD: Passw0rd
+      MARIADB_ROOT_PASSWORD: Passw0rd
     volumes:
       - db_data:/var/lib/mysql
 
