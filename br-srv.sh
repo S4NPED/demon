@@ -46,7 +46,7 @@ cat > /etc/ansible/hosts << 'EOF'
 [hq]
 192.168.100.1 ansible_user=net_admin ansible_password=P@ssw0rd
 192.168.100.2 ansible_user=sshuser ansible_password=P@$$word ansible_port=2026
-192.168.100.35 ansible_user=sshuser ansible_password=P@ssw0rd
+192.168.100.34 ansible_user=sshuser ansible_password=P@ssw0rd
 
 [br]
 192.168.200.1 ansible_user=net_admin ansible_password=P@ssw0rd
