@@ -94,9 +94,9 @@ cp /root/Additional/web/index.php /var/www/html
 mount /root/Additional.iso /mnt/
 cp /mnt/web/index.php /var/www/html
 cp /mnt/web/logo.png /var/www/html
-sed -i '3c $username = “web”;' /var/www/html/index.php
-sed -i '4c $password = “P@ssw0rd”;' /var/www/html/index.php
-sed -i '5c $dbname = “webdb”;' /var/www/html/index.php
+sed -i '3c $username = "web";' /var/www/html/index.php
+sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
+sed -i '5c $dbname = "webdb";' /var/www/html/index.php
 systemctl enable --now mariadb
 mariadb -u root
 read -p "Нажмите Enter для продолжения..."
