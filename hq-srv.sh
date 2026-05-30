@@ -86,9 +86,9 @@ cp /root/Загрузки/Additional.7z /root
 apt install p7zip-full
 7z x /root/Additional.7z
 7z x Additional.iso -o/root/Additional
-apt install apache* -y
+apt install apache2 -y
 apt install php php8.4 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
-apt install mariadb* -y
+apt install mariadb -y
 systemctl stop mariadb
 systemctl stop apache2 
 cp /root/Additional/web/index.php /var/www/html
