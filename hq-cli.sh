@@ -21,7 +21,15 @@ sed -i '3c nameserver 192.168.100.2' /etc/resolv.conf
 
 apt remove git -y
 rm -r /root/demon
-rm /root/.bash_history
+xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
+read -p "Нажмите Enter для продолжения..."
+cp /root/Загрузки/Additional.7z /root
+apt install p7zip-full
+7z x /root/Additional.7z
+rm -r /root/Загрузки/Additional.7z
+rm -r /root/Additional.7z
+rm -r /root/Additional.iso
+rm -r /root/.bash_history 
 history -c
 nano /etc/apt/sources.list
 hostnamectl set-hostname hq-cli.au-team.irpo
@@ -38,10 +46,5 @@ apt install openssh-server -y
 useradd -m -s /bin/bash sshuser -U
 usermod -aG sudo sshuser
 passwd sshuser
-xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
-read -p "Нажмите Enter для продолжения..."
-cp /root/Загрузки/Additional.7z /root
-apt install p7zip-full
-7z x /root/Additional.7z
 apt install ./Yandex.deb -y
 yandex-browser-stable --no-sandbox
