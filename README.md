@@ -16,8 +16,8 @@ BR-SRV | При установке вылезет синее окно, пише�
    P@ssw0rd
 HQ-SRV | настройка базы данных
    CREATE DATABASE webdb;
-   CREATE USER ‘web’@’localhost’ IDENTIFIED BY ‘P@ssw0rd’;
-   GRANT ALL PRIVILEGES ON webdb.* TO ‘web’@’localhost’ WITH GRANT OPTION;
+   CREATE USER 'web'@'localhost' IDENTIFIED BY 'P@ssw0rd';
+   GRANT ALL PRIVILEGES ON webdb.* TO 'web'@'localhost' WITH GRANT OPTION;
    EXIT;
    nano /etc/resolv.conf
    nameserver 192.168.200.2
