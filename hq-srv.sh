@@ -57,8 +57,6 @@ EOF
 apt install chrony -y
 sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
 sed -i '5a server 172.16.1.1 iburst' /etc/chrony/chrony.conf
-sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
-sed -i '3c nameserver 192.168.100.2' /etc/resolv.conf
 xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
 read -p "Нажмите Enter для продолжения..."
 cp /root/Загрузки/Additional.7z /root
