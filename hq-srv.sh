@@ -102,7 +102,6 @@ sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
 sed -i '5c $dbname = "webdb";' /var/www/html/index.php
 systemctl enable --now mariadb
 mariadb -u root
-read -p "Нажмите Enter для продолжения..."
 mariadb -u web -p -D webdb < /mnt/web/dump.sql
 rm /var/www/html/index.html
 sed -i '1c <VirtualHost *:8080>' /etc/apache2/sites-available/000-default.conf
