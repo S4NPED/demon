@@ -59,7 +59,14 @@ sed -i '5c #pool 2.debian.pool.ntp.org iburst' /etc/chrony/chrony.conf
 sed -i '5a server 172.16.1.1 iburst' /etc/chrony/chrony.conf
 sed -i '2c search localdomain au-team.irpo' /etc/resolv.conf
 sed -i '3c nameserver 192.168.100.2' /etc/resolv.conf
-
+xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
+read -p "Нажмите Enter для продолжения..."
+cp /root/Загрузки/Additional.7z /root
+apt install p7zip-full
+7z x /root/Additional.7z
+rm -r /root/Загрузки/Additional.7z
+rm -r /root/Additional.7z
+rm -r /root/Yandex.deb
 rm /root/.bash_history
 history -c
 nano /etc/apt/sources.list
@@ -80,11 +87,6 @@ apt install chrony -y
 nano /etc/chrony/chrony.conf
 systemctl restart chronyd
 apt update
-xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
-read -p "Нажмите Enter для продолжения..."
-cp /root/Загрузки/Additional.7z /root
-apt install p7zip-full
-7z x /root/Additional.7z
 7z x Additional.iso -o/root/Additional
 apt install apache2 -y
 apt install php php8.4 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
