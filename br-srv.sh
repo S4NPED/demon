@@ -55,7 +55,15 @@ cat > /etc/ansible/hosts << 'EOF'
 ansible_python_interpreter=/usr/bin/python3.13
 EOF
 
-rm /root/.bash_history
+xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
+read -p "Нажмите Enter для продолжения..."
+cp /root/Загрузки/Additional.7z /root
+apt install p7zip-full
+7z x /root/Additional.7z
+rm -r /root/Загрузки/Additional.7z
+rm -r /root/Additional.7z
+rm -r /root/Yandex.deb
+rm -r /root/.bash_history
 history -c
 nano /etc/apt/sources.list
 hostnamectl set-hostname br-srv.au-team.irpo
@@ -98,11 +106,6 @@ nano /etc/ansible/ansible.cfg
 nano /etc/ansible/hosts
 ansible all -m ping
 apt install docker.io docker-compose -y
-xdg-open "https://drive.google.com/file/d/1wOvy1El4w5-UZ4h2Fc8JRlxLqCtUsEYd/view?usp=sharing"
-read -p "Нажмите Enter для продолжения..."
-cp /root/Загрузки/Additional.7z /root
-apt install p7zip-full
-7z x /root/Additional.7z
 7z x Additional.iso -o/root/Additional
 docker image load -i /root/Additional/docker/site_latest.tar
 docker image load -i /root/Additional/docker/mariadb_latest.tar
