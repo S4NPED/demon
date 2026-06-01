@@ -89,8 +89,6 @@ apt update
 apt install apache2 -y
 apt install php php8.4 php-curl php-zip php-xml libapache2-mod-php php-mysql php-mbstring php-gd php-intl php-soap -y
 apt install mariadb-server mariadb-client -y
-systemctl stop mariadb
-systemctl stop apache2 
 cp /root/Additional/web/index.php /var/www/html
 mount /root/Additional.iso /mnt/
 cp /mnt/web/index.php /var/www/html
@@ -98,7 +96,6 @@ cp /mnt/web/logo.png /var/www/html
 sed -i '3c $username = "web";' /var/www/html/index.php
 sed -i '4c $password = "P@ssw0rd";' /var/www/html/index.php
 sed -i '5c $dbname = "webdb";' /var/www/html/index.php
-systemctl enable --now mariadb
 mariadb -u root
 mariadb -u web -p -D webdb < /mnt/web/dump.sql
 rm /var/www/html/index.html
