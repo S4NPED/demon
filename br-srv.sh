@@ -84,8 +84,6 @@ systemctl stop samba-ad-dc
 samba-tool domain provision --use-rfc2307 --interactive
 systemctl start smbd nmbd winbind
 systemctl start samba-ad-dc
-sed -i '8c kdc = au-team.irpo' /var/lib/samba/private/krb5.conf
-sed -i '8a admin_server = br-srv.au-team.irpo' /var/lib/samba/private/krb5.conf
 cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
 samba-tool group add hq
 samba-tool user create hquser1 P@ssw0rd
