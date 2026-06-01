@@ -25,7 +25,7 @@ HQ-SRV | настройка базы данных
    P@ssw0rd
 HQ-RTR | НАПИСАТЬ RESOLV
    nano /etc/resolv.conf
-   nameserver 192.168.200.2
+   nameserver 8.8.8.8
 ISP | Теперь при заходе на http://web.au-team.irpo
    WEB
    P@ssw0rd
